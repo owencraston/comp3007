@@ -1,5 +1,6 @@
 import Codec.BMP
 import GHC.Word
+import GHC.List as List
 import Data.ByteString
 
 -- For this code to work you will need to have installed the package "bmp-1.2.6.3"
@@ -38,4 +39,24 @@ parseIntoRGBVals (h:i:j:_:t) = (h,i,j) : (parseIntoRGBVals t)
 
 convertToList :: ([(Int, Int, Int)], Int, Int) -> [[(Int, Int, Int)]]
 convertToList (_, _, 0) = []
-convertToList (l, w, h) = take w l : convertToList (drop w l , w, h - 1)
+convertToList (l, w, h) = List.take w l : convertToList (List.drop w l , w, h - 1)
+
+
+-- cleanQRList :: [[(Int, Int, Int)]]-> [[(Int, Int, Int)]]
+-- cleanQRList is the function I have written to address requirement (b)
+
+-- is a helper finction thate takes one list and chnages the rgb values to black or white
+cleanQRRow :: [(Int, Int, Int)] -> [(Int, Int, Int)]
+cleanQRRow [] = []
+cleanQRRow ((0, 0, 0) : l) = (0, 0, 0): cleanQRRow l
+cleanQRRow ((_) : l) = (255, 255, 255) : cleanQRRow l
+
+cleanQRList :: [[(Int, Int, Int)]]-> [[(Int, Int, Int)]]
+cleanQRList [] = []
+cleanQRList (head: tail) = cleanQRRow head: cleanQRList tail
+
+
+
+
+
+
