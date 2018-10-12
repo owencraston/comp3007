@@ -1,1 +1,1 @@
-data TVL = FALSE | TRUE | NULL
+data TVL = falz | troo | unknown
