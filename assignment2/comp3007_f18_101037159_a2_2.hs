@@ -1,19 +1,19 @@
-data TVL = falz | troo | unknown
+data TVL = Falz | Troo | Unkown deriving (Show)
 
--- ternaryNot flips the value unles it is unknown
+-- ternaryNot flips the value unles it is Unkown
 ternaryNOT :: TVL -> TVL
-ternaryNOT falz = troo
-ternaryNOT troo = falz
-ternaryNOT unknown = unknown
+ternaryNOT Falz = Troo
+ternaryNOT Troo = Falz
+ternaryNOT Unkown = Unkown
 
-ternaryAND :: TVL TVL - TVL
-ternaryAnd falz _ = falz
-ternaryAnd _ falz = falz
-ternaryAnd troo troo = troo
-ternaryAnd _ _ = unknown
+ternaryAND :: TVL -> TVL -> TVL
+ternaryAND Falz _ = Falz
+ternaryAND _ Falz = Falz
+ternaryAND Troo Troo = Troo
+ternaryAND _ _ = Unkown
 
-ternaryOR :: TVL TVL - TVL
-ternaryOR troo _ = troo
-ternaryOR troo _ = troo
-ternaryOR falz falz = troo
-ternaryOR _ _ = unknown
+ternaryOR :: TVL -> TVL -> TVL
+ternaryOR Troo _ = Troo
+ternaryOR _ Troo = Troo
+ternaryOR Falz Falz = Troo
+ternaryOR _ _ = Unkown
