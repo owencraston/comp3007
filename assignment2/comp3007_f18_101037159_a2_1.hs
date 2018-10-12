@@ -53,7 +53,7 @@ cleanQRRow ((_) : l) = (255, 255, 255) : cleanQRRow l
 
 cleanQRList :: [[(Int, Int, Int)]]-> [[(Int, Int, Int)]]
 cleanQRList [] = []
-cleanQRList (head: tail) = cleanQRRow head : cleanQRList tail
+cleanQRList (x: xs) = cleanQRRow x : cleanQRList xs
 
 
 -- showAsASCIIArt' :: [[(Int, Int, Int)]] -> [[Char]]
@@ -62,9 +62,9 @@ cleanQRList (head: tail) = cleanQRRow head : cleanQRList tail
 -- showAsASCIIArtRow is a helper function that converts a row into ascii
 showASCIIArtRow :: [(Int, Int, Int)] -> [Char]
 showASCIIArtRow [] = []
-showASCIIArtRow ((0, 0, 0) : list) = '▓' : showASCIIArtRow list
-showASCIIArtRow ((255, 255, 255) : list) = '░' : showASCIIArtRow list
+showASCIIArtRow ((0, 0, 0) : xs) = '▓' : showASCIIArtRow xs
+showASCIIArtRow ((255, 255, 255) : xs) = '░' : showASCIIArtRow xs
 
 showAsASCIIArt' :: [[(Int, Int, Int)]] -> [[Char]]
 showAsASCIIArt' [] = []
-showAsASCIIArt' (h:t) = showASCIIArtRow h : showAsASCIIArt' t
+showAsASCIIArt' (x:xs) = showASCIIArtRow x : showAsASCIIArt' xs
