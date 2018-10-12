@@ -30,8 +30,8 @@ parseIntoRGBVals (h:i:j:_:t) = (h,i,j) : (parseIntoRGBVals t)
 
 -- if you haven't written showAsASCIIArt' yet, then comment out the function below
 
--- showAsASCIIArt :: [[(Int, Int, Int)]] -> IO ()
--- showAsASCIIArt pixels = Prelude.putStr (unlines (showAsASCIIArt' pixels) )
+showAsASCIIArt :: [[(Int, Int, Int)]] -> IO ()
+showAsASCIIArt pixels = Prelude.putStr (unlines (showAsASCIIArt' pixels) )
 
 
 -- convertToList :: ([(Int, Int, Int)], Int, Int) -> [[(Int, Int, Int)]]
@@ -39,7 +39,7 @@ parseIntoRGBVals (h:i:j:_:t) = (h,i,j) : (parseIntoRGBVals t)
 
 convertToList :: ([(Int, Int, Int)], Int, Int) -> [[(Int, Int, Int)]]
 convertToList (_, _, 0) = []
-convertToList (l, w, h) = List.take w l : convertToList (List.drop w l , w, h - 1)
+convertToList (l, w, h) = convertToList (List.drop w l , w, h - 1) ++ [List.take w l]  
 
 
 -- cleanQRList :: [[(Int, Int, Int)]]-> [[(Int, Int, Int)]]
@@ -48,15 +48,23 @@ convertToList (l, w, h) = List.take w l : convertToList (List.drop w l , w, h - 
 -- is a helper finction thate takes one list and chnages the rgb values to black or white
 cleanQRRow :: [(Int, Int, Int)] -> [(Int, Int, Int)]
 cleanQRRow [] = []
-cleanQRRow ((0, 0, 0) : l) = (0, 0, 0): cleanQRRow l
+cleanQRRow ((0, 0, 0) : l) = (0, 0, 0) : cleanQRRow l
 cleanQRRow ((_) : l) = (255, 255, 255) : cleanQRRow l
 
 cleanQRList :: [[(Int, Int, Int)]]-> [[(Int, Int, Int)]]
 cleanQRList [] = []
-cleanQRList (head: tail) = cleanQRRow head: cleanQRList tail
+cleanQRList (head: tail) = cleanQRRow head : cleanQRList tail
 
 
+-- showAsASCIIArt' :: [[(Int, Int, Int)]] -> [[Char]]
+-- showAsASCIIArt is the function I have written to address requirement (c)
 
+-- showAsASCIIArtRow is a helper function that converts a row into ascii
+showASCIIArtRow :: [(Int, Int, Int)] -> [Char]
+showASCIIArtRow [] = []
+showASCIIArtRow ((0, 0, 0) : list) = '▓' : showASCIIArtRow list
+showASCIIArtRow ((255, 255, 255) : list) = '░' : showASCIIArtRow list
 
-
-
+showAsASCIIArt' :: [[(Int, Int, Int)]] -> [[Char]]
+showAsASCIIArt' [] = []
+showAsASCIIArt' (h:t) = showASCIIArtRow h : showAsASCIIArt' t
