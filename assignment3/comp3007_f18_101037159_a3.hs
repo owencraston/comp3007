@@ -2,6 +2,7 @@ import Codec.BMP
 import GHC.Word
 import GHC.List as List
 import Data.ByteString
+import Data.Fixed
 
 
 -- Owen Craston
@@ -9,14 +10,13 @@ import Data.ByteString
 -- comp 3007 assignment 3
 
 -- question1
-randf :: Int -> Float
-randf f = fromIntegral (rand f :: Int) / 10
+-- formula for Linear congruential generator was found here: https://en.wikipedia.org/wiki/Linear_congruential_generator
 
-rand :: Int -> Int
-rand i = randNum
-  where randNum = (x - 1) `mod` 10
-        x = 3 * (i) `mod` 101
-
+a = 12
+c = 3
+m = 7
+rand :: Float -> Float
+rand i = ((a * i + c) `mod'` m) / m
 
 -- question 2
 -- question 3
