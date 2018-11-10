@@ -1,8 +1,7 @@
-import Codec.BMP
-import GHC.Word
 import GHC.List as List
 import Data.ByteString
 import Data.Fixed
+import Data.Maybe
 
 
 -- Owen Craston
@@ -19,5 +18,7 @@ rand :: Float -> Float
 rand i = ((a * i + c) `mod'` m) / m
 
 -- question 2
+data TreeExpr = Var String | Val Float | Add TreeExpr TreeExpr | Sub TreeExpr TreeExpr | Mul TreeExpr TreeExpr | Div TreeExpr TreeExpr
+
 -- question 3
 -- question 4
