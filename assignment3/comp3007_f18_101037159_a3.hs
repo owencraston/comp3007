@@ -18,14 +18,20 @@ rand :: Float -> Float
 rand i = ((a * i + c) `mod'` m) / m
 
 -- question 2
-data TreeExpr = Var String | Val Float | Addition TreeExpr TreeExpr | Subtraction TreeExpr TreeExpr | Multiplication TreeExpr TreeExpr | Division TreeExpr TreeExpr deriving (Show)
+data TreeExpr
+    = Var String
+    | Val Float
+    | Addition TreeExpr TreeExpr
+    | Subtraction TreeExpr TreeExpr
+    | Multiplication TreeExpr TreeExpr
+    | Division TreeExpr TreeExpr deriving (Show)
 
 -- question 3
 -- a, eval function that actually evaluates expression
 
 eval :: TreeExpr -> Float -> (Maybe Float)
-eval (Var x) a = (Just a)
-eval (Val f) a = (Just f)
+eval (Var _) a = Just a
+eval (Val f) a = Just f
 eval (Addition l r) a
  | eval l a == Nothing || eval r a == Nothing = Nothing
  | otherwise = Just (fromJust (eval l a) + fromJust (eval r a))
@@ -41,7 +47,7 @@ eval (Division l r) a
 
 -- b, treeToString function that turns an tree expression into a more legible math expression
 treeToString :: TreeExpr -> String
-treeToString (Var x) = "x"
+treeToString (Var _) = "x"
 treeToString (Val f) = show f
 treeToString (Addition l r) = "(" ++ (treeToString l) ++ " + " ++ (treeToString r) ++ ")"
 treeToString (Subtraction l r) = "(" ++ (treeToString l) ++ " - " ++ (treeToString r) ++ ")"
@@ -50,7 +56,7 @@ treeToString (Division l r) = "(" ++ (treeToString l) ++ " / " ++ (treeToString 
 
 -- c, print the tree 
 drawTree :: TreeExpr -> Int -> String
-drawTree (Var x) _ = "x"
+drawTree (Var _) _ = "x"
 drawTree (Val f) _ = show f
 drawTree (Addition l r) node = "(+) ---" ++ drawTree l (node+1) ++ "\n" ++ indent node ++ "|" ++ "\n" ++ indent node ++ "----" ++ drawTree r (node+1) 
 drawTree (Subtraction l r) node = "(-) ---" ++ drawTree l (node+1) ++ "\n" ++ indent node ++ "|" ++ "\n"++ indent node ++ "----" ++ drawTree r (node+1) 
@@ -69,5 +75,6 @@ testExp2 = Multiplication (Addition (Var "x") (Val 3)) (Addition (Val 5) (Val 2)
 testSubtraction = (Subtraction (Var "x") (Val 3))
 testMultiplication = (Multiplication (Var "y") (Val 4))
 testDivision = (Division (Val 10) (Var "x"))
+testDivision2 = (Division (Var "x") (Val 10))
 
 -- question 4
