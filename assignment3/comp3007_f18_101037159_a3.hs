@@ -1,12 +1,9 @@
-import GHC.List as List
-import Data.ByteString
-import Data.Fixed
-import Data.Maybe
-
-
 -- Owen Craston
 -- 101037159
 -- comp 3007 assignment 3
+
+import Data.Fixed
+import Data.Maybe
 
 -- question1
 -- formula for Linear congruential generator was found here: https://en.wikipedia.org/wiki/Linear_congruential_generator
