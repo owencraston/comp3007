@@ -21,7 +21,7 @@ rand i = ((a * i + c) `mod'` m) / m
 data TreeExpr = Var String | Val Float | Addition TreeExpr TreeExpr | Subtraction TreeExpr TreeExpr | Multiplication TreeExpr TreeExpr | Division TreeExpr TreeExpr
 
 -- question 3
--- a eval function that actually evaluates expression
+-- a, eval function that actually evaluates expression
 
 eval :: TreeExpr -> Float -> (Maybe Float)
 eval (Var x) a = (Just a)
@@ -38,5 +38,14 @@ eval (Multiplication l r) a
 eval (Division l r) a
  | (fromJust (eval r a) == 0) = Nothing
  | otherwise = Just (fromJust (eval l a) / fromJust (eval r a))
+
+-- b, treeToString function that turns an tree expression into a more legible math expression
+treeToString :: TreeExpr -> String
+treeToString (Var x) _ = "x"
+treeToString (Val f) _ = show f
+treeToString (Addition l r) = "(" ++ (treeToString l) ++ " + " ++ (treeToString r) ++ ")"
+treeToString (Subtraction l r) = "(" ++ (treeToString l) ++ " - " ++ (treeToString r) ++ ")"
+treeToString (Multiplication l r) = "(" ++ (treeToString l) ++ " * " ++ (treeToString r) ++ ")"
+treeToString (Division l r) = "(" ++ (treeToString l) ++ " / " ++ (treeToString r) ++ ")"
 
 -- question 4
