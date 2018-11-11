@@ -29,15 +29,9 @@ data TreeExpr
 eval :: TreeExpr -> Float -> (Maybe Float)
 eval (Var _) a = Just a
 eval (Val f) a = Just f
-eval (Addition l r) a
- | eval l a == Nothing || eval r a == Nothing = Nothing
- | otherwise = Just (fromJust (eval l a) + fromJust (eval r a))
-eval (Subtraction l r) a
- | eval l a == Nothing || eval r a == Nothing = Nothing
- | otherwise = Just (fromJust (eval l a) - fromJust (eval r a))
-eval (Multiplication l r) a
- | eval l a == Nothing || eval r a == Nothing = Nothing
- | otherwise = Just ((fromJust (eval l a)) * (fromJust (eval r a)))
+eval (Addition l r) a = Just (fromJust (eval l a) + fromJust (eval r a))
+eval (Subtraction l r) a = Just (fromJust (eval l a) - fromJust (eval r a))
+eval (Multiplication l r) a = Just ((fromJust (eval l a)) * (fromJust (eval r a)))
 eval (Division l r) a
  | (fromJust (eval r a) == 0) = Nothing
  | otherwise = Just (fromJust (eval l a) / fromJust (eval r a))
