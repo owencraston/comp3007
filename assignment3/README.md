@@ -44,3 +44,12 @@ functions:
 - `eval testDivision 0` -> Nothing
 - `treeToString testExp1` -> "(x + 3.0)"
 - `Prelude.putStrLn $ drawTree testExp2 1`
+
+# Question 4
+function:
+- `mutateTree :: TreeExpr -> TreeExpr`
+
+## test
+- `mutateTree (Val 3)` -> Val 0.5714286
+- `mutateTree (Addition (Val 1) (Val 3))` -> Addition (Val 1.0) (Multiplication (Val 0.14285715) (Val 0.5714286))
+- `mutateTree (Subtraction (Val 1) (Val 3))` -> Subtraction (Val 1.0) (Multiplication (Val 0.14285715) (Val 0.5714286))

@@ -69,3 +69,15 @@ testDivision = (Division (Val 10) (Var "x"))
 testDivision2 = (Division (Var "x") (Val 10))
 
 -- question 4
+-- a) Replace one literal value with another literal value
+-- b) Replace a literal value with a randomly generated operation
+-- Replace a subtree with a randomly generated literal value
+
+-- this works for simple cases of a and b
+mutateTree :: TreeExpr -> TreeExpr
+mutateTree (Val f) = (Val (rand f))
+mutateTree (Addition l r) = (Addition l (Multiplication (mutateTree l) (mutateTree r)))
+mutateTree (Subtraction l r) = (Subtraction l (Multiplication (mutateTree l) (mutateTree r)))
+mutateTree (Multiplication l r) = (Multiplication l (Addition (mutateTree l) (mutateTree r)))
+mutateTree (Division l r) = (Division l (Addition (mutateTree l) (mutateTree r)))
+
