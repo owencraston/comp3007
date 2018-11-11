@@ -18,7 +18,7 @@ rand :: Float -> Float
 rand i = ((a * i + c) `mod'` m) / m
 
 -- question 2
-data TreeExpr = Var String | Val Float | Addition TreeExpr TreeExpr | Subtraction TreeExpr TreeExpr | Multiplication TreeExpr TreeExpr | Division TreeExpr TreeExpr
+data TreeExpr = Var String | Val Float | Addition TreeExpr TreeExpr | Subtraction TreeExpr TreeExpr | Multiplication TreeExpr TreeExpr | Division TreeExpr TreeExpr deriving (Show)
 
 -- question 3
 -- a, eval function that actually evaluates expression
@@ -41,11 +41,33 @@ eval (Division l r) a
 
 -- b, treeToString function that turns an tree expression into a more legible math expression
 treeToString :: TreeExpr -> String
-treeToString (Var x) _ = "x"
-treeToString (Val f) _ = show f
+treeToString (Var x) = "x"
+treeToString (Val f) = show f
 treeToString (Addition l r) = "(" ++ (treeToString l) ++ " + " ++ (treeToString r) ++ ")"
 treeToString (Subtraction l r) = "(" ++ (treeToString l) ++ " - " ++ (treeToString r) ++ ")"
 treeToString (Multiplication l r) = "(" ++ (treeToString l) ++ " * " ++ (treeToString r) ++ ")"
 treeToString (Division l r) = "(" ++ (treeToString l) ++ " / " ++ (treeToString r) ++ ")"
+
+-- c, print the tree 
+drawTree :: TreeExpr -> Int -> String
+drawTree (Var x) _ = "x"
+drawTree (Val f) _ = show f
+drawTree (Addition l r) node = "(+) ---" ++ drawTree l (node+1) ++ "\n" ++ indent node ++ "|" ++ "\n" ++ indent node ++ "----" ++ drawTree r (node+1) 
+drawTree (Subtraction l r) node = "(-) ---" ++ drawTree l (node+1) ++ "\n" ++ indent node ++ "|" ++ "\n"++ indent node ++ "----" ++ drawTree r (node+1) 
+drawTree (Multiplication l r) node = "(*) ---" ++ drawTree l (node+1) ++ "\n" ++ indent node ++ "|" ++ "\n" ++ indent node ++ "----" ++ drawTree r (node+1) 
+drawTree (Division l r) node = "(/) ---" ++ drawTree l (node+1) ++ "\n" ++ indent node ++  "|" ++ "\n" ++ indent node ++ "----" ++ drawTree r (node+1) 
+
+-- helper function to print the correct number of tabs
+indent :: Int -> [Char]
+indent 0 = []
+indent node = "\t" ++ indent (node-1)
+
+-- test variables
+testAddition =  (Addition (Val 1) (Val 3)) -- = 4
+testExp1 = (Addition (Var "x") (Val 3))
+testExp2 = Multiplication (Addition (Var "x") (Val 3)) (Addition (Val 5) (Val 2))
+testSubtraction = (Subtraction (Var "x") (Val 3))
+testMultiplication = (Multiplication (Var "y") (Val 4))
+testDivision = (Division (Val 10) (Var "x"))
 
 -- question 4
