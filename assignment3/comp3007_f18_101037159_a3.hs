@@ -18,7 +18,25 @@ rand :: Float -> Float
 rand i = ((a * i + c) `mod'` m) / m
 
 -- question 2
-data TreeExpr = Var String | Val Float | Add TreeExpr TreeExpr | Sub TreeExpr TreeExpr | Mul TreeExpr TreeExpr | Div TreeExpr TreeExpr
+data TreeExpr = Var String | Val Float | Addition TreeExpr TreeExpr | Subtraction TreeExpr TreeExpr | Multiplication TreeExpr TreeExpr | Division TreeExpr TreeExpr
 
 -- question 3
+-- a eval function that actually evaluates expression
+
+eval :: TreeExpr -> Float -> (Maybe Float)
+eval (Var x) a = (Just a)
+eval (Val f) a = (Just f)
+eval (Addition l r) a
+ | eval l a == Nothing || eval r a == Nothing = Nothing
+ | otherwise = Just (fromJust (eval l a) + fromJust (eval r a))
+eval (Subtraction l r) a
+ | eval l a == Nothing || eval r a == Nothing = Nothing
+ | otherwise = Just (fromJust (eval l a) - fromJust (eval r a))
+eval (Multiplication l r) a
+ | eval l a == Nothing || eval r a == Nothing = Nothing
+ | otherwise = Just ((fromJust (eval l a)) * (fromJust (eval r a)))
+eval (Division l r) a
+ | (fromJust (eval r a) == 0) = Nothing
+ | otherwise = Just (fromJust (eval l a) / fromJust (eval r a))
+
 -- question 4
