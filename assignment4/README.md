@@ -18,3 +18,18 @@ to test:
 X = 4 ;
 false.
 ```
+
+
+## Question 3
+
+open `swipl` in source dir
+
+to load: `?- [comp3007_f18_101037159_a4_3].` => `true`
+
+to test: 
+```
+?- possible(TL).
+false.
+```
+
+since this is not possible the response is `false`.
