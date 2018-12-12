@@ -61,3 +61,40 @@ createListOfThirds2 (_: _: []) = []
 createListOfThirds2 (x:y:z:xs) = z : createListOfThirds xs
 
 -- createListOfThirds2 ['A', 'B', 'C', 'D', 'E','F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O'] -> "CFILO"
+
+-- For the purposes of this question, assume that the name “orderedPairs” refers to a list of all possible ordered pairs of integers, in RANDOM ORDER, where each component is 
+-- between 0 and 5, inclusive. Using “orderedPairs” as a generator, write a list comprehension that produces a list of all possible ordered pairs of integers (in the order they appeared in the generator) 
+-- for which the sum of the components is 6 and the first component is less than the second. 
+-- You may use the fst and snd selector functions for this question if you wish, but your solution must be a list comprehension and cannot rely on any other functions.
+
+-- https://wiki.haskell.org/List_comprehension
+
+makeList :: [(Int, Int)] -> [(Int, Int)]
+makeList orderedPairs = [ (x, y)| (x, y) <- orderedPairs, x+y==6, x < y]
+
+--  makeList [(1, 5), (5, 1), (4, 2), (2, 4)] -> [(1,5),(2,4)]
+
+
+-- 6. Write a recursive function (including a type declaration) that takes a list of ordered pairs of integers as an argument and returns the same list you should receive from the list comprehension defined in 5 above. 
+-- You may NOT use list comprehensions and you may NOT use any built-in functions, so your solution to this question may not call fst and snd unless you provide them yourself.
+
+makeListRecurse :: [(Int, Int)] -> [(Int, Int)]
+makeListRecurse [] = []
+makeListRecurse ((x, y): xs)
+    | x < y, x+y == 6 = (x, y) : makeListRecurse xs
+    | otherwise = makeListRecurse xs
+
+-- makeListRecurse [(1, 5), (5, 1), (4, 2), (2, 4)] -> [(1,5),(2,4)]
+
+-- For the purposes of this question, assume that the name “pixelData” refers to a list of 3-tuples of integers, where each 3-tuple (R, G, B) 
+-- is a reference to the colour of a particular pixel in a raster image (as defined by the specification for your second assignment). 
+-- Under the assumption that you knew, for certain, that the image being represented was SQUARE (i.e., had the same width and height), 
+-- write Haskell functions (including a type declarations) that allow you repack this one-dimensional list of pixels into a SQUARE two-dimensional list of pixels. 
+-- You may use the built-in length, take, and drop functions to complete this question if you wish, but you may NOT use any other built-in functions.
+    
+convert1Dto2D :: [(Int, Int, Int)] -> Int -> [[(Int, Int, Int)]]
+convert1Dto2D [] _ = []
+convert1Dto2D list width = (Prelude.take width list) : convert1Dto2D (Prelude.drop width list) width
+
+-- convert1Dto2D [(1, 2, 3),(1, 2, 3),(1, 2, 3),(1, 2, 3),(1, 2, 3),(1, 2, 3),(1, 2, 3),(1, 2, 3),(1, 2, 3),(1, 2, 3),(1, 2, 3),(1, 2, 3),(1, 2, 3),(1, 2, 3),(1, 2, 3),(1, 2, 3),(1, 2, 3),(1, 2, 3),(1, 2, 3),(1, 2, 3),(1, 2, 3),(1, 2, 3),(1, 2, 3),(1, 2, 3),(1, 2, 3)] 5
+-- [[(1,2,3),(1,2,3),(1,2,3),(1,2,3),(1,2,3)],[(1,2,3),(1,2,3),(1,2,3),(1,2,3),(1,2,3)],[(1,2,3),(1,2,3),(1,2,3),(1,2,3),(1,2,3)],[(1,2,3),(1,2,3),(1,2,3),(1,2,3),(1,2,3)],[(1,2,3),(1,2,3),(1,2,3),(1,2,3),(1,2,3)]]
