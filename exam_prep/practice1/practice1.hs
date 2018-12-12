@@ -29,6 +29,35 @@ computeRange start step stop
 -- retrieving the third element of a list) and then having your recursive function call your
 -- selector function as required. [4.0 marks]
 
+-- i didn't use this
+listLength :: [Char] -> Int
+listLength [] = 0
+listLength (x:xs) = 1 + listLength xs
+
+getThirdElem :: [Char] -> Char
+getThirdElem (x:y:z:xs) = z
+
+createListOfThirds :: [Char] -> [Char]
+createListOfThirds [] = []
+createListOfThirds (_: []) = []
+createListOfThirds (_: _: []) = []
+createListOfThirds list = getThirdElem list : createListOfThirds (take3 list)
+    
+take3 :: [Char] -> [Char]
+take3 [] = []
+take3 (_: []) = []
+take3 (_: _: []) = []
+take3 (x:y:z:xs) = xs
+
+-- createListOfThirds ['A', 'B', 'C', 'D', 'E','F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O'] -> "CFILO"
+
 -- b. Write this function (including a type declaration) without selector functions (even if you
 -- wrote them yourself), using only pattern matching
 
+createListOfThirds2 :: [Char] -> [Char]
+createListOfThirds2 [] = []
+createListOfThirds2 (_: []) = []
+createListOfThirds2 (_: _: []) = []
+createListOfThirds2 (x:y:z:xs) = z : createListOfThirds xs
+
+-- createListOfThirds2 ['A', 'B', 'C', 'D', 'E','F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O'] -> "CFILO"
