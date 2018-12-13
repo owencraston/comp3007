@@ -48,4 +48,4 @@ tImplication _ _ = Nothing
 
 -- 6
 returnEven :: [Int] -> [Int]
-returnEven (a) = foldl (+) 0 filter (even a)
+returnEven (a) = foldl (+) 0 (filter even a)

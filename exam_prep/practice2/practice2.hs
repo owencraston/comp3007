@@ -75,3 +75,13 @@ sumEvenList (x:xs)
     | otherwise = sumEvenList xs
 
 -- sumEvenList [1,2,3,4,5,6,7,8,9] -> 20
+
+-- 6. [HASKELL] How would you write a single expression using the higher order functions foldr, map, and/or filter 
+-- to provide the sum of every even number that appears in a list of integers? You may use the built-in even (even :: Int -> Bool) 
+-- function to complete this question but you cannot use any other functions.
+
+highSumEvenList :: [Int] -> Int
+highSumEvenList (a) = foldr (+) 0 (filter even a)
+
+-- highSumEvenList [1,2,3,4,5,6,7,8,9] -> 20
+
