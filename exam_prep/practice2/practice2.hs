@@ -25,22 +25,41 @@
 -- declaration has been provided below, but you will likely want to implement your own sum and length helper functions. Please assume that the arithmetic mean of a list of length 0 is defined as 0.
 --           avrage :: ListOfInts -> Float
 
-data ListOfInts = EmptyList | Single Int | Cons Int Int ListOfInts deriving (Show)
+-- data ListOfInts = EmptyList | Single Int | Cons Int Int ListOfInts deriving (Show)
 
-lSum :: ListOfInts -> Int
-lSum EmptyList = 0
-lSum Single x = x
-lSum Cons x y l = x + y + lSum l
+-- avrage :: ListOfInts -> Float
+-- average EmptyList = 0.0
+-- avergae Single x = x
+-- average x = (sum` x)/(length` x) 
 
-lLength :: ListOfInts -> Int
-lLength EmptyList = 0
-lLength Single x = 1
-lLength Cons _ _ l = 2 + lLength l
+-- length':: ListOfInts -> Int
+-- length' EmptyList = 0
+-- length' Single = 0
+-- length' (Cons x y xs) = 2 + length' xs
 
-avrage :: ListOfInts -> Float
-avrage EmptyList = 0
-avrage Single x = x
-avrage Cons l = lSum l / lLength l
+-- sum' :: ListOfInts -> Int
+-- sum' EmptyList = 0
+-- sum' Single x = x
+-- sum' Cons x y xs = x + y sum' xs
 -- testList = (Cons 1 2), (Single 2), (EmptyList Cons 10 10)
 
 -- 4
+
+-- data TLogicVal = Duno | Troo | Falz deriving Show
+
+-- Consider, as an alternative, how a (Maybe Bool) could be used as an alternative to a TLogicVal value
+-- (using Nothing to represent the unknown value), and rewrite the following function...
+
+-- tImplication:: TLogicVal -> TLogicVal -> TLogicVal tImplication Troo Falz = Falz
+-- tImplication Falz _ = Troo
+-- tImplication _ Troo = Troo
+    --    tImplication _ _ = Duno
+
+data TLogicVal = Duno | Troo | Falz deriving Show
+
+tImplication :: (Maybe TLogicVal) -> (Maybe TLogicVal) -> (Maybe TLogicVal)
+tImplication (Just Troo) (Just Falz) = (Just Falz)
+tImplication (Just Falz) _ = (Just Troo)
+tImplication _ (Just Troo) = (Just Troo)
+tImplication _ _ = Nothing
+
