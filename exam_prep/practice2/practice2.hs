@@ -63,3 +63,15 @@ tImplication (Just Falz) _ = (Just Troo)
 tImplication _ (Just Troo) = (Just Troo)
 tImplication _ _ = Nothing
 
+-- 5
+-- 5. [HASKELL] How would you write a single Haskell function to provide the sum of 
+-- every even number that appears in a list of integers? You may use the built-in even (even :: Int -> Bool) 
+-- function to complete this question but you cannot use any other functions.
+
+sumEvenList :: [Int] -> Int
+sumEvenList [] = 0
+sumEvenList (x:xs)
+    | even x = x + sumEvenList xs
+    | otherwise = sumEvenList xs
+
+-- sumEvenList [1,2,3,4,5,6,7,8,9] -> 20
